@@ -1,0 +1,26 @@
+{
+  "name": "cena-trimalchionis",
+  "version": "1.0.0",
+  "description": "An art project exploring Petronius Satyricon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonobr1/cena-trimalchionis.git"
+  },
+  "keywords": [
+    "roman",
+    "antiquity",
+    "literatur",
+    "petronius",
+    "satyricon"
+  ],
+  "author": "jonobr1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonobr1/cena-trimalchionis/issues"
+  },
+  "homepage": "https://github.com/jonobr1/cena-trimalchionis#readme"
+}
