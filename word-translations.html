@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Word Occurrence</title>
+    <style>
+      * { margin: 0; padding: 0; }
+      body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      div {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="keys"></div>
+    <div id="values"></div>
+    <div class="scripts">
+      <script src="./third-party/xhr.js"></script>
+      <script>
+
+        var total = 0;
+        var result = {};
+        var keys, values;
+
+        xhr.get('./assets/word-translations.json', function(resp) {
+
+          result = JSON.parse(resp);
+
+          keys = Object.keys(result);
+          total = keys.length;
+
+          values = [];
+          for (var i = 0; i < keys.length; i++) {
+            values.push(result[keys[i]].replace(/\W/, ' ').toLowerCase());
+          }
+
+          document.querySelector('#keys').textContent = keys.join(', ');
+          document.querySelector('#values').textContent = values.join(', ');
+
+        });
+
+      </script>
+    </div>
+  </body>
+</html>

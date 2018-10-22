@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Word Occurrence</title>
+    <style>
+      * { margin: 0; padding: 0; }
+      body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      div#content {
+        width: 100%;
+        position: relative;
+        text-align: center;
+      }
+      div#content span {
+        display: inline-block;
+        padding: 5px;
+        vertical-align: middle;
+        font-family: times;
+        font-style: italic;
+        line-height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+    </div>
+    <div class="scripts">
+      <script src="./third-party/xhr.js"></script>
+      <script>
+
+        var domElement = document.querySelector('#content');
+
+        var max_count = 414;
+        var total = 0;
+        var result = {};
+        var keys;
+
+        xhr.get('./assets/cena-trimalchionis.json', function(resp) {
+
+          var json = JSON.parse(resp);
+
+          for (var i = 0; i < json.book.length; i++) {
+
+            var chapter = json.book[i];
+            var body = chapter.body;
+
+            var words = body.split(/[\s]/);
+
+            for (var j = 0; j < words.length; j++) {
+
+              var word = words[j].replace(/\W/g, '').toLowerCase();
+
+              if (!word) {
+                continue;
+              }
+
+              if (word in result) {
+                result[word]++;
+              } else {
+                result[word] = 1;
+              }
+
+            }
+
+            total += words.length;
+
+          }
+
+          keys = Object.keys(result);
+          keys = keys.sort().reverse();
+
+          loop();
+
+          console.log('Total words', total);
+
+        });
+
+        var index = 0;
+        var amount = 50;
+
+        function loop() {
+
+          for (var i = index; i < Math.min(index + amount, keys.length); i++) {
+
+            var key = keys[i];
+            var value = result[key];
+
+            var elem = document.createElement('span');
+            elem.style.fontSize = (50 * Math.pow(value / max_count, 0.5) + 10) + 'px';
+            elem.textContent = key;
+
+            if (domElement.children.length > 0) {
+              domElement.insertBefore(elem, domElement.children[0]);
+            } else {
+              domElement.appendChild(elem);
+            }
+
+          }
+
+          index += amount;
+          if (index < keys.length) {
+            requestAnimationFrame(loop);
+          } else {
+            console.log('Done');
+          }
+
+        }
+
+      </script>
+    </div>
+  </body>
+</html>
