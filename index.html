@@ -88,13 +88,14 @@
 
             var string = word.replace(/\W/g, '').toLowerCase();
             var id = wordlist.latin.indexOf(string);
-            var elem = document.createElement('span');
+            // var elem = document.createElement('span');
 
-            domElement.appendChild(elem);
+            // domElement.appendChild(elem);
 
             if (id < 0) {
               // console.log('no emoji');
-              elem.textContent = word;
+              // elem.textContent = word;
+              domElement.innerHTML += word + ' ';
               loop(j + 1);
               return;
             }
@@ -106,7 +107,8 @@
               word = word.replace(string, matches[0]);
             }
 
-            elem.textContent = word;
+            // elem.textContent = word;
+            domElement.innerHTML += word + ' ';
 
             loop(j + 1);
 

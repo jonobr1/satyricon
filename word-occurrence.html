@@ -11,30 +11,64 @@
         left: 0;
         right: 0;
         bottom: 0;
+        font-family: "Lucida Bright", "Times New Roman", Times, serif;
+        font-size: 20px;
+        line-height: 1.5;
       }
-      div#content {
-        width: 100%;
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 500;
+      }
+      #container {
+        display: flex;
+        flex-direction: row;
+      }
+      div#content,
+      div#output {
         position: relative;
-        text-align: center;
+        flex-grow: 1;
+        width: 50%;
+      }
+      div#output {
+        overflow: hidden;
       }
       div#content span {
         display: inline-block;
-        padding: 5px;
-        vertical-align: middle;
-        font-family: times;
-        font-style: italic;
+        padding: 2.5px;
+        vertical-align: baseline;
         line-height: 40px;
+      }
+      div#output textarea {
+        width: 95%;
+        height: 250px;
       }
     </style>
   </head>
   <body>
-    <div id="content">
+    <h1>
+      Cena Trimalchionis &middot; Word Occurrence
+    </h1>
+    <h2>
+      Word List
+    </h2>
+    <div id="container">
+      <div id="content">
+      </div>
+      <div id="output">
+        <h3>
+          Output JSON:
+        </h3>
+        <textarea></textarea>
+        <p>
+          Take this output and replace ../assets/word-occurrence.json with the output.
+        </p>
+      </div>
     </div>
     <div class="scripts">
       <script src="./third-party/xhr.js"></script>
       <script>
 
         var domElement = document.querySelector('#content');
+        var textarea = document.querySelector('#output textarea');
 
         var max_count = 414;
         var total = 0;
@@ -107,6 +141,7 @@
           if (index < keys.length) {
             requestAnimationFrame(loop);
           } else {
+            textarea.textContent = JSON.stringify(result);
             console.log('Done');
           }
 
