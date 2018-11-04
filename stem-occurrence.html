@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div class="scripts">
+      <script src="./third-party/xhr.js"></script>
+      <script src="./src/latin.js"></script>
+      <script>
+
+        var json;
+        var dictionary = {
+          noun: {},
+          verb: {},
+          both: {}
+        };
+        var total = 0;
+
+        xhr.get('./assets/cena-trimalchionis.json', function(resp) {
+
+          json = JSON.parse(resp);
+
+          var index = 0;
+
+          parseChapter();
+
+          function parseChapter() {
+
+            var chapter = json.book[index];
+
+            if (!chapter) {
+              index = 0;
+              appendToDictionary();
+              return;
+            }
+
+            var body = chapter.body;
+            chapter.latin = new Latin(body);
+            index++;
+
+            requestAnimationFrame(parseChapter);
+
+          }
+
+          function appendToDictionary() {
+
+            var chapter = json.book[index];
+
+            if (!chapter) {
+              console.log('Done with', total, 'unique stems.');
+              return;
+            }
+
+            var latin = chapter.latin;
+
+            for (var type in dictionary) {
+              for (var stem in latin.dictionary[type]) {
+                if (!dictionary[type][stem]) {
+                  dictionary[type][stem] = [];
+                }
+                dictionary[type][stem] = dictionary[type][stem].concat(latin.dictionary[type][stem]);
+                total++;
+              }
+            }
+
+            console.log('Appended chapter', chapter.chapter)
+            index++;
+            requestAnimationFrame(appendToDictionary);
+
+          }
+
+        });
+
+      </script>
+    </div>
+  </body>
+</html>
