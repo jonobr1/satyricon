@@ -6,3 +6,4 @@ package-lock.json
 *.tcc
 *.lst
 *.ttc
+keys/*
