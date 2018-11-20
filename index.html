@@ -9,15 +9,15 @@
         margin-right: 5px;
       }
       h1,
+      h2,
       div.chapter {
         padding: 10px;
       }
     </style>
   </head>
   <body>
-    <h1>
-      Cena Trimalchionis
-    </h1>
+    <h1 id="title"></h1>
+    <h2>By <span id="author"></span></h2>
     <div id="content"></div>
     <div class="scripts">
       <script src="./third-party/xhr.js"></script>
@@ -27,34 +27,32 @@
         var wordlist;
         var emoji_regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32-\ude3a]|[\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/;
 
-        xhr.get('./assets/cena-trimalchionis.json', function(resp) {
+        xhr.get('./assets/satyricon.json', function(resp) {
 
           story = JSON.parse(resp);
           setup();
 
         });
 
-        xhr.get('./assets/latin-emoji-csv.json', function(resp) {
+        xhr.get('./assets/latin-emoji.json', function(resp) {
 
           wordlist = JSON.parse(resp);
           setup();
 
         });
 
+        function setup() {
+          setup.index++;
+          if (!setup.initialized && setup.index >= 2) {
+            setup.initialized = true;
+            document.body.querySelector('#title').textContent = story.title;
+            document.body.querySelector('#author').textContent = story.author;
+            transcribe(0);
+          }
+        }
+
         setup.index = 0;
         setup.initialized = false;
-
-        function setup() {
-
-          setup.index++;
-          if (!setup.initialized && setup.index < 2) {
-            return;
-          }
-          setup.initialized = true;
-
-          setTimeout(transcribe, 10, 0);
-
-        }
 
         function transcribe(i) {
 
@@ -66,10 +64,10 @@
           }
 
           var contents = chapter.body;
-          var words = contents.split(/[\s]/);
+          var words = contents.join('\n').split(/[\s]/);
           var domElement = document.createElement('div');
 
-          domElement.innerHTML = '<h2>' + chapter.chapter + '</h2>';
+          domElement.innerHTML = '<h3>' + chapter.chapter + '</h3>';
           domElement.classList.add('chapter');
 
           document.querySelector('#content').appendChild(domElement);
@@ -87,28 +85,13 @@
             }
 
             var string = word.replace(/\W/g, '').toLowerCase();
-            var id = wordlist.latin.indexOf(string);
-            // var elem = document.createElement('span');
+            var emoji = wordlist[string];
 
-            // domElement.appendChild(elem);
-
-            if (id < 0) {
-              // console.log('no emoji');
-              // elem.textContent = word;
+            if (!emoji) {
               domElement.innerHTML += word + ' ';
-              loop(j + 1);
-              return;
+            } else {
+              domElement.innerHTML += word.replace(string, emoji) + ' ';
             }
-
-            var emoji = wordlist.emoji[id];
-            var matches = emoji.match(emoji_regex);
-
-            if (matches && matches.length > 0) {
-              word = word.replace(string, matches[0]);
-            }
-
-            // elem.textContent = word;
-            domElement.innerHTML += word + ' ';
 
             loop(j + 1);
 
