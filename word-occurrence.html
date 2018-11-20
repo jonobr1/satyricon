@@ -75,14 +75,14 @@
         var result = {};
         var keys;
 
-        xhr.get('./assets/cena-trimalchionis.json', function(resp) {
+        xhr.get('./assets/satyricon.json', function(resp) {
 
           var json = JSON.parse(resp);
 
           for (var i = 0; i < json.book.length; i++) {
 
             var chapter = json.book[i];
-            var body = chapter.body;
+            var body = chapter.body.join('\n');
 
             var words = body.split(/[\s]/);
 

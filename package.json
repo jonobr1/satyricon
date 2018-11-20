@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/jonobr1/cena-trimalchionis#readme",
   "devDependencies": {
-    "@google-cloud/translate": "^2.1.2"
+    "@google-cloud/translate": "^2.1.2",
+    "moment": "^2.22.2",
+    "underscore": "^1.9.1"
   }
 }

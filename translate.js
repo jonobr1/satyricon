@@ -1,6 +1,7 @@
 // Imports the Google Cloud client library
-var {Translate} = require('@google-cloud/translate');
+var { Translate } = require('@google-cloud/translate');
 var fs = require('fs');
+var moment = require('moment');
 
 // Your Google Cloud Platform project ID
 var projectId = 'jono-fyi';
@@ -16,11 +17,14 @@ wordList = JSON.parse(wordList);
 // // The text to translate
 // var text = 'Hello, world!';
 // // The target language
-var target = 'en';
+var options = { from: 'la', to: 'en' };
 var result = {};
+var errors = {};
 var keys = Object.keys(wordList);
 var total = keys.length;
 var index = 0;
+
+var startTime = Date.now();
 
 transform(keys[index]);
 
@@ -30,11 +34,17 @@ function transform(word) {
     next();
   }
   translate
-    .translate(word, target)
+    .translate(word, options)
     .then(function(results) {
-      var translation = results[0];
-      result[word] = translation;
-      console.log(`Text: `, word, 'Translation:', translation, Math.floor(100 * index / total) + '%');
+      var translation = results[0].toLowerCase();
+      // Only add the word to the translation list if Google Translate
+      // found any kind of translation:
+      if (word === translation) {
+        errors[word] = true;
+      } else {
+        result[word] = translation;
+        console.log('Text:', word, 'Translation:', translation, Math.floor(100 * index / total) + '%');
+      }
       next();
     })
     .catch(function(err) {
@@ -50,6 +60,8 @@ function next() {
     console.log('Saving out file');
     console.log(result);
     fs.writeFileSync('./assets/word-translations.json', JSON.stringify(result), 'utf8');
-    console.log('Done');
+    fs.writeFileSync('./assets/word-translation-errors.json', JSON.stringify(errors), 'utf8');
+    console.log('Finished.', moment().format(), 'Transcode took', (Date.now() - startTime) / 1000, 'seconds.');
+    process.exit(1);
   }
 }
