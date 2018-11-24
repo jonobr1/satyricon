@@ -1,4 +1,4 @@
-# Cena Trimalchionis
+# Satyricon
 
 ## Steps
 1. Get word list from `./word-occurrence.html`
