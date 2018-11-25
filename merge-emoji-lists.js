@@ -19,9 +19,17 @@ function format(emojis) {
   var result = [];
   for (var name in emojis) {
     var keywords = emojis[name];
+    var wordlist = [];
+    keywords = _.uniq(keywords.split(' | '));
+    wordlist = keywords;
+    // for (var j = 0; j < keywords.length; j++) {
+    //   var keyword = keywords[j].toLowerCase();
+    //   var words = keyword.split(/\s/i);
+    //   wordlist = wordlist.concat(words);
+    // }
     result.push({
       emoji: name,
-      keywords: _.uniq(keywords.split(' | '))
+      keywords: _.uniq(wordlist)
     });
   }
   console.log(result);

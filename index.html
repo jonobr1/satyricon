@@ -2,16 +2,33 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Cena Trimalchionis</title>
+    <title>PERDITIS 🏺INVENTIS</title>
+    <link rel="stylesheet" href="https://use.typekit.net/uhv1skr.css">
     <style>
       * { margin: 0; padding: 0; }
-      span {
-        margin-right: 5px;
-      }
-      h1,
-      h2,
+      h1, h2,
       div.chapter {
-        padding: 10px;
+        padding: 0 40px;
+      }
+      body {
+        font-family: mrs-eaves, times, serif;
+        font-size: 20px;
+        line-height: 40px;
+        font-weight: 400;
+        font-style: normal;
+        max-width: 710px;
+      }
+      h1, div.chapter {
+        margin-top: 40px;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: mrs-eaves-roman-petite-caps, sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: 1px;
+        text-transform: lowercase;
+        text-align: center;
+        margin-bottom: 10px;
       }
     </style>
   </head>
@@ -64,6 +81,8 @@
           }
 
           var contents = chapter.body;
+          // TODO: Insert carriage returns in here somehow. That's important
+          // for the final piece.
           var words = contents.join('\n').split(/[\s]/);
           var domElement = document.createElement('div');
 
