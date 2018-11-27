@@ -121,9 +121,11 @@ function compare(word, keywords) {
 
         var subword = subwords[j];
 
-        if (word === subword) {
-          score += 0.5;
-          matched = true;
+        if (subword.length >= 3) {
+          if (word === subword) {
+            score += 0.5;
+            matched = true;
+          }
         }
 
       }

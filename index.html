@@ -92,10 +92,7 @@
             return;
           }
 
-          var contents = chapter.body;
-          // TODO: Insert carriage returns in here somehow. That's important
-          // for the final piece.
-          var words = contents.join('\n').split(/[\s]/);
+          var lines = chapter.body;
           var domElement = document.createElement('div');
 
           domElement.innerHTML = '<h3>' + chapter.chapter + '</h3>';
@@ -107,24 +104,42 @@
 
           function loop(j) {
 
-            var word = words[j];
+            var line = lines[j];
 
-            if (!word) {
+            if (!line) {
               console.log('Done with Chapter', chapter.chapter);
               setTimeout(transcribe, 10, i + 1);
               return;
             }
 
-            var string = word.replace(/\W/g, '').toLowerCase();
-            var emoji = wordlist[string];
+            var paragraph = document.createElement('p');
+            domElement.appendChild(paragraph);
 
-            if (!emoji) {
-              domElement.innerHTML += word + ' ';
-            } else {
-              domElement.innerHTML += word.replace(string, emoji) + ' ';
+            var words = line.split(/\s/i);
+
+            iterate(0);
+
+            function iterate(k) {
+
+              var word = words[k];
+
+              if (!word) {
+                setTimeout(loop, 0, j + 1);
+                return;
+              }
+
+              var string = word.replace(/\W/g, '').toLowerCase();
+              var emoji = wordlist[string];
+
+              if (!emoji) {
+                paragraph.innerHTML += word + ' ';
+              } else {
+                paragraph.innerHTML += word.replace(string, emoji) + ' ';
+              }
+
+              iterate(k + 1);
+
             }
-
-            loop(j + 1);
 
           }
 
