@@ -3,150 +3,107 @@
   <head>
 
     <meta charset="utf-8">
-    <title>PERDITIS 🏺INVENTIS</title>
+    <title>Lost Treasures Found</title>
 
     <!-- iOS specific catches -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
 
-
     <link rel="stylesheet" href="https://use.typekit.net/uhv1skr.css">
-    <style>
-      * { margin: 0; padding: 0; }
-      h1, h2,
-      div.chapter {
-        padding: 0 40px;
-      }
-      body {
-        font-family: mrs-eaves, times, serif;
-        font-size: 20px;
-        line-height: 40px;
-        font-weight: 400;
-        font-style: normal;
-        max-width: 710px;
-      }
-      h1, div.chapter {
-        margin-top: 40px;
-      }
-      div.chapter:last-child {
-        margin-bottom: 40px;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: mrs-eaves-roman-petite-caps, sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        letter-spacing: 1px;
-        text-transform: lowercase;
-        text-align: center;
-        margin-bottom: 10px;
-      }
-    </style>
+    <link type="text/css" rel="stylesheet" href="./styles/main.css">
+
+    <link rel="icon" type="image/png" href="./images/favicon.png" />
 
   </head>
   <body>
-    <h1 id="title"></h1>
-    <h2>By <span id="author"></span></h2>
-    <div id="content"></div>
-    <div class="scripts">
-      <script src="./third-party/xhr.js"></script>
-      <script>
 
-        var story;
-        var wordlist;
-        var emoji_regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32-\ude3a]|[\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/;
+    <br />
+    <h1>
+      PERDITIS<span class="small-caps amphora">🏺</span>INVENTIS
+    </h1>
 
-        xhr.get('./assets/satyricon.json', function(resp) {
+    <div class="description">
 
-          story = JSON.parse(resp);
-          setup();
+      <div class="visual">
+        <img src="./images/2-cover.jpg" width="100%" height="*" />
+        <p class="caption">
+          Laser Engraved Cover, 2018.
+        </p>
+      </div>
 
-        });
+      <p>
+        <span class="small-caps">PERDITIS 🏺INVENTIS</span> or <i>Lost Treasures Found</i> is a unique edition of Petronius’ sultry portrayal of common life in Ancient Rome, the Satyricon. The original Latin text is filtered and then paired with Emojis through a custom computer program. Each of the more than eleven thousand unique words in the story are translated into English through <i>Google Translate</i>. When the translated English word matches a keyword in <i>Apple</i>’s Emoji dictionary, the original Latin word is substituted for its corresponding Emoji. The result is a printed book full of subversions that question the relationship of time and language through technology.
+      </p>
 
-        xhr.get('./assets/latin-emoji.json', function(resp) {
+      <div class="visual">
+        <video width="100%" height="*" muted="true" inline="true" autoplay="true" loop="true">
+          <source src="./video/lost-treasures-found-walkthrough.mp4" type="video/mp4" />
+        </video>
+        <p class="caption">
+          Book Walkthrough, 2019.
+        </p>
+      </div>
 
-          wordlist = JSON.parse(resp);
-          setup();
+      <p>
+        We are taught that as history unfolds civilization advances. In all facets of life, from new discoveries to broken records we as a species continue to grow. As Isaac Newton put it famously, “If I have seen further it is by standing on the shoulders of Giants.” We build off of our predecessors. These metrics for our collective success are inherently quantitative though. Qualitatively it can be difficult to discern our progress from past generations. This difficulty allows similarities to appear. This question enables us to see our likeness in an ancient protagonist.
+      </p>
+      <p>
+        After a career in the coliseum Encolpius works toward an academic degree. Outside of class he yearns for the affection of his boyfriend Giton, the validation of his professor Agamemnon, and the collapse of his once friend and now arch rival Ascyltus. Encolpius, however, is time and again met with failure. His endeavors unravel throughout the Satyricon in the most bizarre and hilarious ways. Traces of Encolpius’ trials can be seen today in the incredulous stories shared over social media. The reception of these stories, like the reception of the Satyricon in the First Century, are met with widespread amusement and engagement. This signals a desire to break from the relentless aspirations of civilization.
+      </p>
+      <p>
+        Today, digital culture occupies our focus and pushes Encolpius into the shadows. We are not building off our predecessors as much as we are obscuring them. In an attempt to uphold one of Newton’s Giants, <i>Lost Treasures Found</i> offers contemporary access to the story of Encolpius. With no prior understanding of Latin, people can dive into the text and catch glimpses of Ancient Roman daily life. The Latin literate are presented with a familiar story set against an unexpected, but appropriate modern backdrop. Ultimately, this book collapses two-thousand years of progress and exposes two distant cultures to each other.
+      </p>
 
-        });
+      <div class="visual">
+        <iframe src="./visualization.html" width="100%" height="360" frameborder="0" style="border: 1px solid #000;"></iframe>
+        <p class="caption">
+          Transcode Process, 2018.
+        </p>
+      </div>
 
-        function setup() {
-          setup.index++;
-          if (!setup.initialized && setup.index >= 2) {
-            setup.initialized = true;
-            document.body.querySelector('#title').textContent = story.title;
-            document.body.querySelector('#author').textContent = story.author;
-            transcribe(0);
-          }
-        }
+      <div class="visual slideshow">
+        <img src="./images/1-texture.jpg" width="49%" height="*" />
+        <img src="./images/3-cover-profile.jpg" width="49%" height="*" />
+        <img src="./images/4-spine.jpg" width="49%" height="*" />
+        <img src="./images/5-frontpage.jpg" width="49%" height="*" />
+        <img src="./images/6-body.jpg" width="49%" height="*" />
+        <img src="./images/7-body.jpg" width="49%" height="*" />
+        <img src="./images/8-body-closeup.jpg" width="49%" height="*" />
+        <img src="./images/9-body-reverse.jpg" width="49%" height="*" />
+      </div>
 
-        setup.index = 0;
-        setup.initialized = false;
+      <div>
+        <ul class="details">
+          <li>
+            Laser engraved leather cover
+          </li>
+          <li>
+            Printed November 2018
+          </li>
+          <li>
+            166 pages
+          </li>
+          <li>
+            Acid free paper / 200gm / A5
+          </li>
+          <li>
+            Paperback
+          </li>
+        </ul>
+        <p>
+          Currently looking for a publisher. For more information please get in touch through email: <a href="mailto:inquiries@jono.fyi">inquiries@jono.fyi</a>
+        </p>
+      </div>
 
-        function transcribe(i) {
-
-          var chapter = story.book[i];
-
-          if (!chapter) {
-            console.log('Done');
-            return;
-          }
-
-          var lines = chapter.body;
-          var domElement = document.createElement('div');
-
-          domElement.innerHTML = '<h3>' + chapter.chapter + '</h3>';
-          domElement.classList.add('chapter');
-
-          document.querySelector('#content').appendChild(domElement);
-
-          loop(0);
-
-          function loop(j) {
-
-            var line = lines[j];
-
-            if (!line) {
-              console.log('Done with Chapter', chapter.chapter);
-              setTimeout(transcribe, 10, i + 1);
-              return;
-            }
-
-            var paragraph = document.createElement('p');
-            domElement.appendChild(paragraph);
-
-            var words = line.split(/\s/i);
-
-            iterate(0);
-
-            function iterate(k) {
-
-              var word = words[k];
-
-              if (!word) {
-                setTimeout(loop, 0, j + 1);
-                return;
-              }
-
-              var string = word.replace(/\W/g, '').toLowerCase();
-              var emoji = wordlist[string];
-
-              if (!emoji) {
-                paragraph.innerHTML += word + ' ';
-              } else {
-                paragraph.innerHTML += word.replace(string, emoji) + ' ';
-              }
-
-              iterate(k + 1);
-
-            }
-
-          }
-
-        }
-
-
-      </script>
     </div>
+
+    <div id="preorder-cta">
+      <a href="#">
+        <img src="./images/sticker.svg">
+      </a>
+    </div>
+
+    <div class="scripts"></div>
   </body>
 </html>

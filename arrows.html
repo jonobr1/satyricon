@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://use.typekit.net/uhv1skr.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+  </head>
+  <body>
+    <div class="scripts">
+      <script src="./third-party/two.js"></script>
+      <script src="./third-party/xhr.js"></script>
+      <script>
+
+        var amount = 100;
+        var drag = 0.04;
+        var added = false;
+        var words = {
+          index: 0
+        };
+        var styles = {
+          size: 20,
+          family: 'mrs-eaves, times, serif',
+          weight: 400
+        };
+        var showArrows = true;
+
+        var two = new Two({
+          // type: Two.Types.canvas,
+          fullscreen: true,
+          autostart: true
+        }).appendTo(document.body);
+
+        two.renderer.domElement.style.background = '#b4a494';
+
+        var elements = new Two.Group();
+        two.add(elements);
+
+        var program = new Two.Rectangle(two.width / 2, two.height / 2, two.width * 0.1, two.height * 0.5);
+        program.dashes = [1, 0];
+
+        var threshold = new Two.Line(two.width / 2, 0, two.width / 2, two.height);
+        threshold.dashes = [10, 2];
+
+        var title = new Two.Text('program', two.width / 2, two.height / 2 - program.height / 2 - styles.size, styles);
+        title.family = 'mrs-eaves-roman-all-petite-c, mrs-eaves, times, serif';
+        var rect = title.getBoundingClientRect();
+
+        title.card = new Two.Rectangle(two.width / 2, two.height / 2 - program.height / 2 - styles.size, rect.width, rect.height);
+        title.card.noStroke();
+
+        var english = new Two.Text('', two.width / 2, two.height / 2, styles);
+        english.family = 'mrs-eaves-roman-all-petite-c, mrs-eaves, times, serif';
+
+        // two.add(threshold, program, title.card, title, english);
+
+        xhr.get('./assets/latin-emoji.json', function(resp) {
+
+          var json = JSON.parse(resp);
+          words.latin = Object.keys(json);
+          words.emojis = Object.values(json);
+
+          // add();
+          generateArrows();
+
+        });
+
+        xhr.get('./assets/word-translations.json', function(resp) {
+
+          words.english = JSON.parse(resp);
+
+        });
+
+        two.bind('update', function(frameCount, timeDelta) {
+
+          english.opacity -= english.opacity * 0.0625;
+
+          for (var i = 0; i < elements.children.length; i++) {
+
+            var elem = elements.children[i];
+            var tx = two.width * elem.target.x;
+            var ty = two.height * elem.target.y;
+
+            var dx = tx - elem.translation.x;
+            var dy = ty - elem.translation.y;
+
+            var px = elem.translation.x;
+            var py = elem.translation.y;
+            var easing = elem.speed * (timeDelta / 250);
+
+            if (elem.isArrow) {
+              elem.visible = showArrows;
+            }
+
+            // if (elem.translation.x < two.width * 0.5) {
+
+              elem.rotation = Math.atan2(ty - elem.translation.y, tx - elem.translation.x);
+
+            // } else if (elem.translation.x > two.width - 1) {
+            //
+            //   reset(elem);
+            //
+            // } else {
+            //
+            //   elem.translation.x += timeDelta / 4;
+            //
+            //   if (elem.emoji && !elem.emoji.visible) {
+            //
+            //     elem.text.visible = false;
+            //     elem.emoji.visible = true;
+            //     elem.rotation = 0;
+            //
+            //     if (words.english) {
+            //       english.value = words.english[elem.text.value];
+            //       english.opacity = 1;
+            //     }
+            //
+            //     // add();
+            //
+            //   } else if (elem.isArrow) {
+            //
+            //     elem.rotation = 0;
+            //     elem.visible = false;
+            //
+            //   }
+            //
+            // }
+
+          }
+
+        });
+
+        two.bind('resize', function() {
+
+          program.translation.set(two.width / 2, two.height / 2);
+          program.width = two.width * 0.1;
+          program.height = two.height * 0.5;
+
+          title.translation.set(two.width / 2, two.height / 2 - program.height / 2 - title.size);
+
+        });
+
+        function add() {
+
+          if (added || words.index > amount) {
+            added = true;
+            return;
+          }
+
+          var elem = new Two.Group();
+
+          elem.text = new Two.Text('', 0, 0, styles);
+          elem.emoji = new Two.Text('', 0, 0, styles);
+          elem.text.baseline = 'baseline';
+          elem.emoji.baseline = 'middle';
+
+          elem.add(elem.text, elem.emoji);
+
+          reset(elem);
+
+          elements.add(elem);
+
+        }
+
+        function generateArrows() {
+
+          var rows = Math.floor(Math.sqrt(amount));
+          var cols = Math.floor(amount / rows);
+
+          for (var i = 0; i < rows * cols; i++) {
+
+            var col = (i % cols) / cols;
+            var row = (Math.floor(i / cols)) / (rows - 1);
+
+            col += Math.random() * 0.5 / cols;
+            row += Math.random() * 0.5 / rows;
+
+            var x = col * two.width / 2;
+            var y = row * two.height;
+
+            var dist = (two.width / 2 - x) * (two.width / 2 - x) + (two.height / 2 - y) * (two.height / 2 - y);
+            dist = Math.sqrt(dist);
+            dist /= two.width;
+
+            var arrow = makeArrow(x, y, 115 * dist + 15, 1);
+
+            arrow.target = new Two.Vector();
+            arrow.target.x = 0.66;
+            arrow.target.y = 0.5;
+            elements.add(arrow);
+
+          }
+
+        }
+
+        function reset(elem) {
+
+          var index = words.index;
+          var latin = words.latin[index];
+          var emoji = words.emojis[index];
+
+          elem.visible = true;
+
+          if (elem.emoji) {
+
+            elem.index = index;
+            elem.text.value = latin;
+            elem.emoji.value = emoji;
+
+            elem.emoji.visible = false;
+            elem.text.visible = true;
+
+            words.index = (words.index + 1) % words.latin.length;
+
+          }
+
+          var seed = Math.random();
+          if (seed > 0.66) {
+            elem.translation.x = Math.random() * two.width * 0.33;
+            elem.translation.y = two.height * 1.25;
+          } else if (seed > 0.33) {
+            elem.translation.x = Math.random() * two.width * 0.33;
+            elem.translation.y = - two.height * 0.25;
+          } else {
+            elem.translation.x = - two.width * 0.2;
+            elem.translation.y = (Math.random() * 4 - 2) * two.height;
+          }
+
+          if (!elem.target) {
+            elem.target = new Two.Vector();
+          }
+          elem.target.x = 1.0;
+          elem.target.y = 0.5 + Math.random() * 0.05 - 0.025;
+          elem.speed = drag + Math.random() * 0.05;
+
+        }
+
+        function makeArrow(x, y, width, linewidth) {
+
+          var x1 = - width / 2;
+          var y1 = 0;
+          var x2 = width / 2;
+          var y2 = 0;
+
+          var line = new Two.Line(x1, y1, x2, y2);
+          line.linewidth = linewidth;
+          line.stroke = 'white';
+
+          var head = new Two.Polygon(width / 2, 0, linewidth * 4, 3);
+          head.rotation = Math.PI / 2;
+
+          head.noStroke();
+          head.fill = line.stroke;
+
+          var group = new Two.Group();
+          group.add(line, head);
+          group.translation.set(x, y);
+          group.isArrow = true;
+
+          return group;
+
+        }
+
+      </script>
+    </div>
+  </body>
+</html>

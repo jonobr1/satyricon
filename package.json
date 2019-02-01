@@ -4,7 +4,8 @@
   "description": "An art project exploring Petronius Satyricon",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "lessc styles/main.less styles/main.css"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
   "devDependencies": {
     "@google-cloud/translate": "^2.1.2",
     "fuse.js": "^3.3.0",
+    "less": "^3.9.0",
+    "less-watch-compiler": "^1.13.0",
     "moment": "^2.22.2",
     "underscore": "^1.9.1"
   },
