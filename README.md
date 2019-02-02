@@ -1,4 +1,11 @@
-# Satyricon
+# Lost Treasures Found
+
+## Roadmap
+- SEO
+- Style ./signup.html
+- Implement slideshow on thumbnails
+- Handle resize events for ./visualization.html
+- `postMessage` play / pause events for visualization based on visibility
 
 ## Steps
 1. Get word list from `./word-occurrence.html`
