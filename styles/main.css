@@ -15,6 +15,7 @@ body {
   font-style: normal;
   max-width: 710px;
   position: relative;
+  padding-bottom: 30px;
 }
 body > div {
   margin-top: 30px;
@@ -51,15 +52,20 @@ div.visual {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-ul.details {
+ul.details,
+.details {
   font-size: 15px;
   line-height: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-ul.details li {
-  list-style-type: circle;
-  margin-left: 20px;
+ul.details li,
+.details li {
+  display: inline-block;
+}
+ul.details li + li:before,
+.details li + li:before {
+  content: " • ";
 }
 a {
   color: black;
@@ -106,4 +112,7 @@ span.amphora {
 #preorder-cta img {
   width: 200px;
   height: 200px;
+}
+.centered {
+  text-align: center;
 }

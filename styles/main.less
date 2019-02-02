@@ -13,6 +13,7 @@ body {
   font-style: normal;
   max-width: 710px;
   position: relative;
+  padding-bottom: 30px;
 }
 
 body > div {
@@ -50,14 +51,16 @@ div.visual {
   margin-bottom: 20px;
 }
 
-ul.details {
+ul.details, .details {
   font-size: 15px;
   line-height: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
   li {
-    list-style-type: circle;
-    margin-left: 20px;
+    display: inline-block;
+    & + li:before {
+      content: " • ";
+    }
   }
 }
 
@@ -114,4 +117,8 @@ span.amphora {
     width: 200px;
     height: 200px;
   }
+}
+
+.centered {
+  text-align: center;
 }
