@@ -4,8 +4,7 @@
   "description": "An art project exploring Petronius Satyricon",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "style": "lessc styles/main.less styles/main.css"
+    "watch": "gulp"
   },
   "repository": {
     "type": "git",
@@ -26,7 +25,10 @@
   "homepage": "https://github.com/jonobr1/cena-trimalchionis#readme",
   "devDependencies": {
     "@google-cloud/translate": "^2.1.2",
+    "browser-sync": "^2.26.3",
     "fuse.js": "^3.3.0",
+    "gulp": "^4.0.0",
+    "gulp-less": "^4.0.1",
     "less": "^3.9.0",
     "less-watch-compiler": "^1.13.0",
     "moment": "^2.22.2",
