@@ -1,5 +1,9 @@
 * { margin: 0; padding: 0; }
 
+// @base: 0.625em;
+@base: 10px;
+@font-size: 2 * @base;
+
 h1, h2,
 div.chapter {
   padding: 0 40px;
@@ -7,22 +11,22 @@ div.chapter {
 
 body {
   font-family: mrs-eaves, times, serif;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: @font-size;
+  line-height: @base * 3;
   font-weight: 400;
   font-style: normal;
   max-width: 710px;
   position: relative;
-  padding-bottom: 30px;
+  padding-bottom: @base * 3;
 }
 
 body > div {
-  margin-top: 30px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-top: @base * 3;
+  margin-left: @base * 3;
+  margin-right: @base * 3;
   position: relative;
   &:last-child {
-    margin-bottom: 30px;
+    margin-bottom: @base * 3;
   }
 }
 
@@ -33,29 +37,29 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 1px;
   text-transform: lowercase;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: @base;
 }
 
 p + p {
-  text-indent: 60px;
-  margin-top: 10px;
+  text-indent: @base * 6;
+  margin-top: @base;
 }
 
 p.caption {
-  font-size: 15px;
+  font-size: @font-size * 0.75;
   text-align: center;
 }
 
 div.visual {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: @base * 2;
+  margin-bottom: @base * 2;
 }
 
 ul.details, .details {
-  font-size: 15px;
-  line-height: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: @font-size * 0.75;
+  line-height: @base * 2;
+  margin-top: @base * 2;
+  margin-bottom: @base * 2;
   li {
     display: inline-block;
     & + li:before {
@@ -80,7 +84,7 @@ a {
 }
 
 div.slideshow {
-  line-height: 20px;
+  line-height: @base * 2;
   * {
     cursor: pointer;
   }
@@ -94,7 +98,7 @@ span.small-caps {
 
 span.amphora {
   vertical-align: middle;
-  margin-top: 6px;
+  margin-top: @font-size * 0.3;
   margin-left: 2px;
   margin-right: 2px;
 }
