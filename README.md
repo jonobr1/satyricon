@@ -1,5 +1,9 @@
 # Lost Treasures Found
 
+## Local Development
+1. `npm install` adds all development dependencies
+2. `npm run watch` runs a local server and live reloads LESS / HTML changes
+
 ## Roadmap
 - [ ] SEO
 - [ ] Style ./signup.html
