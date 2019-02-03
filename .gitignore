@@ -8,5 +8,5 @@ package-lock.json
 *.ttc
 keys/*
 *.idlk
-.mp4
-.webm
+*.mp4
+*.webm
