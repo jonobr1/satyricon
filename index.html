@@ -38,8 +38,8 @@
 
       <div id="walkthrough" class="visual">
         <video width="100%" height="*" muted="true" inline="true" autoplay="true" loop="true">
-          <source src="./video/lost-treasures-found-walkthrough-1080.mp4" type="video/mp4" />
-          <source src="./video/lost-treasures-found-walkthrough-1080.webm" type="video/webm" />
+          <source src="//storage.googleapis.com/archive.jono.fyi/projects/lost-treasures-found/lost-treasures-found-walkthrough-1080.mp4" type="video/mp4" />
+          <source src="//storage.googleapis.com/archive.jono.fyi/projects/lost-treasures-found/lost-treasures-found-walkthrough-1080.webm" type="video/webm" />
         </video>
         <p class="caption">
           Book Walkthrough, 2019.
@@ -112,6 +112,9 @@
           <li>
             Apple Color Emoji
           </li>
+          <li>
+            Bibliography
+          </li>
         </ul>
       </div>
 
@@ -141,7 +144,7 @@
     <div id="footer">
       <ul class="details centered">
         <li>
-          <a href="https://jono.fyi/" target="_blank">Website</a>
+          <a href="./signup.html">Newsletter</a>
         </li>
         <li>
           <a href="https://instagram.com/jonobr1" target="_blank">Instagram</a>
@@ -166,6 +169,34 @@
 
     <div class="scripts">
       <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/523e97fad789c8129168aaaeb/8831547220b27bde366326894.js");</script>
+      <script>
+
+        var iframe = document.querySelector('#visualization iframe');
+        if (iframe) {
+          window.addEventListener('scroll', scroll, false);
+        }
+
+        function scroll() {
+
+          if (!iframe.contentWindow) {
+            return;
+          }
+
+          var height = window.innerHeight;
+          var rect = iframe.getBoundingClientRect();
+          var message = 'pause';
+
+          if (rect.top >= - rect.height && rect.top <= height) {
+            message = 'play';
+          }
+
+          iframe.contentWindow.postMessage(message, window.location.href);
+
+        }
+
+        scroll();
+
+      </script>
     </div>
   </body>
 </html>

@@ -13,7 +13,7 @@
       <script>
 
         var amount = 20;
-        var drag = 0.04;
+        var drag = 0.02;
         var added = false;
         var words = {
           index: 0
@@ -27,14 +27,42 @@
 
         var two = new Two({
           type: Two.Types.canvas,
-          fullscreen: true,
-          autostart: true
+          fullscreen: true
         }).appendTo(document.body);
+
+        window.addEventListener('message', function(e) {
+
+          if (!(/(localhost|lost\-and\-found\.gifts)/i.test(e.origin))) {
+            return;
+          }
+
+          switch (e.data) {
+            case 'play':
+              if (!two.playing) {
+                two.play();
+              }
+              break;
+            case 'stop':
+              if (two.playing) {
+                two.pause();
+              }
+              break;
+          }
+
+        }, false);
+
+        window.addEventListener('click', function(e) {
+
+          if (!two.playing) {
+            two.play();
+          }
+
+        }, false);
 
         var elements = new Two.Group();
         two.add(elements);
 
-        var program = new Two.Rectangle(two.width / 2, two.height / 2, two.width * 0.1, two.height * 0.5);
+        var program = new Two.Rectangle(two.width / 2, two.height / 2, Math.max(two.width * 0.1, 100), two.height * 0.5);
         program.dashes = [1, 0];
 
         var threshold = new Two.Line(two.width / 2, 0, two.width / 2, two.height);
@@ -61,6 +89,8 @@
           add();
           generateArrows();
 
+          two.bind('update', update);
+
         });
 
         xhr.get('./assets/word-translations.json', function(resp) {
@@ -69,7 +99,30 @@
 
         });
 
-        two.bind('update', function(frameCount, timeDelta) {
+        two.bind('resize', resize);
+        two.bind('update', update);
+
+        function resize() {
+
+          program.translation.set(two.width / 2, two.height / 2);
+          program.width = Math.max(two.width * 0.1, 100);
+          program.height = two.height * 0.5;
+
+          threshold.vertices[0].x = two.width / 2;
+          threshold.vertices[0].y = 0;
+          threshold.vertices[1].x = two.width / 2;
+          threshold.vertices[1].y = two.height;
+
+          title.translation.set(two.width / 2, two.height / 2 - program.height / 2 - title.size);
+          english.translation.set(two.width / 2, two.height / 2);
+
+        }
+
+        function update(frameCount, timeDelta) {
+
+          if (!timeDelta) {
+            return;
+          }
 
           english.opacity -= english.opacity * 0.0625;
 
@@ -99,7 +152,7 @@
 
             } else {
 
-              elem.translation.x += timeDelta / 4;
+              elem.translation.x += timeDelta / 20;
 
               if (elem.emoji && !elem.emoji.visible) {
 
@@ -109,7 +162,10 @@
 
                 if (words.english) {
                   english.value = words.english[elem.text.value];
+                  english.scale = 1;
                   english.opacity = 1;
+                  var rect = english.getBoundingClientRect();
+                  english.scale = Math.min(program.width / rect.width, 1);
                 }
 
                 add();
@@ -125,17 +181,7 @@
 
           }
 
-        });
-
-        two.bind('resize', function() {
-
-          program.translation.set(two.width / 2, two.height / 2);
-          program.width = two.width * 0.1;
-          program.height = two.height * 0.5;
-
-          title.translation.set(two.width / 2, two.height / 2 - program.height / 2 - title.size);
-
-        });
+        }
 
         function add() {
 
@@ -161,7 +207,7 @@
 
         function generateArrows() {
 
-          for (var i = 0; i < amount * 2; i++) {
+          for (var i = 0; i < amount; i++) {
 
             var arrow = makeArrow(0, 0, 33, 0.5);
             arrow.translation.x = Math.random() * two.width;
@@ -170,9 +216,11 @@
             if (!arrow.target) {
               arrow.target = new Two.Vector();
             }
+
             arrow.target.x = 1.0;
             arrow.target.y = 0.5 + Math.random() * 0.05 - 0.025;
             arrow.speed = drag + Math.random() * 0.05;
+
             elements.add(arrow);
 
           }
@@ -217,7 +265,7 @@
           }
           elem.target.x = 1.0;
           elem.target.y = 0.5 + Math.random() * 0.05 - 0.025;
-          elem.speed = drag + Math.random() * 0.05;
+          elem.speed = drag + Math.random() * 0.02;
 
         }
 
