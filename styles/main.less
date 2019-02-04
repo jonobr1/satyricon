@@ -1,8 +1,8 @@
 * { margin: 0; padding: 0; }
 
-// @base: 0.625em;
 @base: 10px;
 @font-size: 2 * @base;
+@max-width: 710px;
 
 @keyframes pulse {
   0% {
@@ -27,7 +27,7 @@ body {
   line-height: @base * 3;
   font-weight: 400;
   font-style: normal;
-  max-width: 710px;
+  max-width: @max-width;
   position: relative;
   padding-bottom: @base * 3;
 }
@@ -50,6 +50,9 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: lowercase;
   text-align: center;
   margin-bottom: @base;
+  @media (max-width: @max-width) {
+    font-size: 1em;
+  }
 }
 
 p + p {
@@ -121,6 +124,12 @@ span.amphora {
   top: 100px;
   left: 70%;
 
+  @media (max-width: @max-width) {
+    top: 80px;
+    left: initial;
+    right: @font-size;
+  }
+
   animation: pulse 2s ease-out infinite;
   transform-style: preserve-3d;
 
@@ -141,6 +150,10 @@ span.amphora {
   img {
     width: 200px;
     height: 200px;
+    @media (max-width: @max-width) {
+      width: 100px;
+      height: 100px;
+    }
   }
 
 }
@@ -206,12 +219,10 @@ span.amphora {
       cursor: pointer;
     }
     div.prev {
-      // content: "<";
       left: 0;
       cursor: w-resize;
     }
     div.next {
-      // content: ">";
       right: 0;
       cursor: e-resize;
     }

@@ -7,7 +7,7 @@
 ## Roadmap
 - [x] SEO
 - [ ] Style ./signup.html
-- [ ] Style for mobile
+- [x] Style for mobile
 - [x] Implement slideshow on thumbnails
 - [x] Handle resize events for ./visualization.html
 - [x] `postMessage` play / pause events for visualization based on visibility

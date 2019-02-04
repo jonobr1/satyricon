@@ -51,6 +51,16 @@ h6 {
   text-align: center;
   margin-bottom: 10px;
 }
+@media (max-width: 710px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1em;
+  }
+}
 p + p {
   text-indent: 60px;
   margin-top: 10px;
@@ -111,6 +121,13 @@ span.amphora {
   animation: pulse 2s ease-out infinite;
   transform-style: preserve-3d;
 }
+@media (max-width: 710px) {
+  #preorder-cta {
+    top: 80px;
+    left: initial;
+    right: 20px;
+  }
+}
 #preorder-cta a {
   display: block;
   position: relative;
@@ -125,6 +142,12 @@ span.amphora {
 #preorder-cta img {
   width: 200px;
   height: 200px;
+}
+@media (max-width: 710px) {
+  #preorder-cta img {
+    width: 100px;
+    height: 100px;
+  }
 }
 .centered {
   text-align: center;
