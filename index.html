@@ -6,7 +6,7 @@
 
     <!-- Primary Meta Tags -->
     <title>Lost Treasures Found</title>
-    <meta name="title" content="PERDITIS 🏺INVENTIS ">
+    <meta name="title" content="PERDITIS 🏺INVENTIS">
     <meta name="description" content="a.k.a. Lost Treasures Found is a book that combines Latin and Emojis.">
     <meta name="keywords" content="latin, emoji, language, new media, book, laser, engrave, jono, transcode, edition, satyricon, petronius, encolpius, ascyltus, agamemnon, giton, mrs eaves, apple emoji one, google translate, video, documentation, retail, paris, france, acid free, paris college of art, mfa, masters, a5, paperback">
 
@@ -23,14 +23,14 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lost-and-found.gifts">
-    <meta property="og:title" content="PERDITIS🏺INVENTIS ">
+    <meta property="og:title" content="PERDITIS🏺INVENTIS">
     <meta property="og:description" content="a.k.a. Lost Treasures Found is a book that combines Latin and Emojis.">
     <meta property="og:image" content="https://lost-and-found.gifts/images/thumbnail.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://lost-and-found.gifts">
-    <meta property="twitter:title" content="PERDITIS 🏺INVENTIS ">
+    <meta property="twitter:title" content="PERDITIS 🏺INVENTIS">
     <meta property="twitter:description" content="a.k.a. Lost Treasures Found is a book that combines Latin and Emojis.">
     <meta property="twitter:image" content="https://lost-and-found.gifts/images/thumbnail.jpg">
 
@@ -186,13 +186,44 @@
       </a>
     </div>
 
+    <div id="close-up">
+
+      <div class="content"></div>
+      <div class="navigation">
+        <div class="prev"></div>
+        <div class="next"></div>
+      </div>
+
+      <div class="exit">
+        &times;
+      </div>s
+
+    </div>
+
     <div class="scripts">
       <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/523e97fad789c8129168aaaeb/8831547220b27bde366326894.js");</script>
       <script>
 
         var iframe = document.querySelector('#visualization iframe');
+        var closeup = document.querySelector('#close-up');
+        var images = document.querySelectorAll('#slideshow img');
+        var content = closeup.querySelector('div.content');
+
+        images = Array.prototype.slice.call(images, 0);
+        images.index = 0;
+
         if (iframe) {
+          scroll();
           window.addEventListener('scroll', scroll, false);
+        }
+
+        closeup.querySelector('.exit').addEventListener('click', close, false);
+        closeup.querySelector('.prev').addEventListener('click', prev, false);
+        closeup.querySelector('.next').addEventListener('click', next, false);
+
+        for (var i = 0; i < images.length; i++) {
+          var image = images[i];
+          image.addEventListener('click', show, false);
         }
 
         function scroll() {
@@ -213,7 +244,41 @@
 
         }
 
-        scroll();
+        function show(e) {
+          closeup.style.display = 'block';
+          var reference = e.target;
+          images.index = images.indexOf(reference);
+          updateImage();
+        }
+
+        function next() {
+          images.index = mod(images.index + 1, images.length);
+          updateImage();
+        }
+
+        function prev() {
+          images.index = mod(images.index - 1, images.length);
+          updateImage();
+        }
+
+        function updateImage() {
+          var reference = images[images.index];
+          if (reference) {
+            var src = reference.src;
+            content.style.backgroundImage = ['url(', src, ')'].join('');
+          }
+        }
+
+        function mod(v, l) {
+          while (v < 0) {
+            v += l;
+          }
+          return v % l;
+        }
+
+        function close(e) {
+          closeup.style.display = 'none';
+        }
 
       </script>
     </div>

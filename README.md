@@ -5,10 +5,10 @@
 2. `npm run watch` runs a local server and live reloads LESS / HTML changes
 
 ## Roadmap
-- [ ] SEO
+- [x] SEO
 - [ ] Style ./signup.html
 - [ ] Style for mobile
-- [ ] Implement slideshow on thumbnails
+- [x] Implement slideshow on thumbnails
 - [x] Handle resize events for ./visualization.html
 - [x] `postMessage` play / pause events for visualization based on visibility
 
