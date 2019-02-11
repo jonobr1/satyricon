@@ -172,11 +172,9 @@
     </div>
 
     <div id="easter-egg">
-      <p class="unavailable">
-        <button id="transcode">Transcode the text on this Webpage</button>
-      </p>
+      <button id="transcode">Transcode</button>
       <p>
-        Test out the transcode process for yourself by clicking the button above.
+        Test out the transcode process for yourself by clicking the button, the red one, to turn the text on this page into Emojis.
       </p>
     </div>
 
@@ -257,11 +255,14 @@
           function transcode() {
 
             domElement.textContent = 'transcoding';
+            domElement.classList.add('transcoding');
 
             var tags = document.querySelectorAll('p:not(.unavailable)');
             Transcode(tags, function() {
               domElement.textContent = 'finished';
               domElement.style.cursor = 'default';
+              domElement.classList.add('complete');
+              domElement.classList.remove('transcoding');
             });
 
             domElement.removeEventListener('click', transcode, false);

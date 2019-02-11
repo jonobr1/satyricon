@@ -13,6 +13,17 @@
     transform: scale(1);
   }
 }
+@keyframes oscillate {
+  0% {
+    background: #ff3232;
+  }
+  50% {
+    background: white;
+  }
+  100% {
+    background: #ff3232;
+  }
+}
 h1,
 h2,
 div.chapter {
@@ -49,6 +60,7 @@ h6 {
   letter-spacing: 1px;
   text-transform: lowercase;
   text-align: center;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 @media (max-width: 710px) {
@@ -62,7 +74,7 @@ h6 {
   }
 }
 p + p {
-  text-indent: 60px;
+  text-indent: 40px;
   margin-top: 10px;
 }
 p.caption {
@@ -215,16 +227,22 @@ span.amphora {
 }
 button {
   background: white;
+  color: black;
   border: 1px solid black;
   border-radius: 0;
   font-family: mrs-eaves, times, serif;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: black;
   cursor: pointer;
   height: 32px;
   line-height: 32px;
   padding: 0 22px;
   text-align: center;
+}
+button:not(.complete) {
+  animation: oscillate 5s ease-out infinite;
+}
+button.transcoding {
+  animation: oscillate 0.1s ease-out infinite;
 }
