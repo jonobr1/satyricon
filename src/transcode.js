@@ -13,7 +13,9 @@
     function complete() {
       index++;
       if (!completed && index >= count) {
-        callback();
+        if (callback) {
+          callback();
+        }
         completed = true;
       }
     }

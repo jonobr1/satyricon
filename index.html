@@ -55,6 +55,10 @@
         <span class="small-caps">PERDITIS 🏺INVENTIS</span> or <i>Lost Treasures Found</i> is a unique edition of Petronius’ sultry portrayal of common life in Ancient Rome, the Satyricon. The original Latin text is filtered and then paired with Emojis through a custom computer program. Each of the more than eleven thousand unique words in the story are translated into English through <i>Google Translate</i>. When the translated English word matches a keyword in <i>Apple</i>’s Emoji dictionary, the original Latin word is substituted for its corresponding Emoji. The result is a printed book full of subversions that question the relationship of time and language through technology.
       </p>
 
+      <p class="caption">
+        Sample the transcode process for yourself by clicking <a href="javascript:(function(){var a=document.createElement('script');a.onload=function(){Transcode.ready(function(){var a=document.querySelectorAll('p:not(.unavailable)');Transcode(a)})},a.src='https://lost-and-found.gifts/src/transcode.js',document.body.appendChild(a)})();">here</a>.
+      </p>
+
       <div id="walkthrough" class="visual">
         <video width="100%" height="*" muted="true" inline="true" autoplay="true" loop="true">
           <source src="//storage.googleapis.com/archive.jono.fyi/projects/lost-treasures-found/lost-treasures-found-walkthrough-1080.mp4" type="video/mp4" />
@@ -171,12 +175,12 @@
 
     </div>
 
-    <div id="easter-egg">
+    <!-- <div id="easter-egg">
       <button id="transcode">Transcode</button>
       <p>
         Test out the transcode process for yourself by clicking the button, the red one, to turn the text on this page into Emojis.
       </p>
-    </div>
+    </div> -->
 
     <div id="footer">
       <ul class="details centered">
@@ -220,7 +224,7 @@
 
     <div class="scripts">
       <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/523e97fad789c8129168aaaeb/8831547220b27bde366326894.js");</script>
-      <script src="./src/transcode.js"></script>
+      <!-- <script src="./src/transcode.js"></script> -->
       <script>
 
         var iframe = document.querySelector('#visualization iframe');
@@ -244,32 +248,6 @@
           var image = images[i];
           image.addEventListener('click', show, false);
         }
-
-        Transcode.ready(function() {
-
-          var domElement = document.querySelector('#transcode');
-          document.querySelector('#easter-egg').style.opacity = 1;
-
-          domElement.addEventListener('click', transcode, false);
-
-          function transcode() {
-
-            domElement.textContent = 'transcoding';
-            domElement.classList.add('transcoding');
-
-            var tags = document.querySelectorAll('p:not(.unavailable)');
-            Transcode(tags, function() {
-              domElement.textContent = 'finished';
-              domElement.style.cursor = 'default';
-              domElement.classList.add('complete');
-              domElement.classList.remove('transcoding');
-            });
-
-            domElement.removeEventListener('click', transcode, false);
-
-          }
-
-        });
 
         function scroll() {
 
