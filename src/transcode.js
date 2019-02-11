@@ -65,7 +65,7 @@
 
   Transcode.fetch = function() {
 
-    var url = '../assets/emoji-fuse-list.json';
+    var url = '//lost-and-found.gifts/assets/emoji-fuse-list.json';
     var r = new XMLHttpRequest();
     r.open('GET', url);
 
