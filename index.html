@@ -171,6 +171,15 @@
 
     </div>
 
+    <div id="easter-egg">
+      <p class="unavailable">
+        <button id="transcode">Transcode the text on this Webpage</button>
+      </p>
+      <p>
+        Test out the transcode process for yourself by clicking the button above.
+      </p>
+    </div>
+
     <div id="footer">
       <ul class="details centered">
         <li>
@@ -213,6 +222,7 @@
 
     <div class="scripts">
       <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/523e97fad789c8129168aaaeb/8831547220b27bde366326894.js");</script>
+      <script src="./src/transcode.js"></script>
       <script>
 
         var iframe = document.querySelector('#visualization iframe');
@@ -236,6 +246,29 @@
           var image = images[i];
           image.addEventListener('click', show, false);
         }
+
+        Transcode.ready(function() {
+
+          var domElement = document.querySelector('#transcode');
+          document.querySelector('#easter-egg').style.opacity = 1;
+
+          domElement.addEventListener('click', transcode, false);
+
+          function transcode() {
+
+            domElement.textContent = 'transcoding';
+
+            var tags = document.querySelectorAll('p:not(.unavailable)');
+            Transcode(tags, function() {
+              domElement.textContent = 'finished';
+              domElement.style.cursor = 'default';
+            });
+
+            domElement.removeEventListener('click', transcode, false);
+
+          }
+
+        });
 
         function scroll() {
 
