@@ -246,3 +246,19 @@ button:not(.complete) {
 button.transcoding {
   animation: oscillate 0.1s ease-out infinite;
 }
+a.hash {
+  position: absolute;
+  display: inline-block;
+  border-bottom: 0;
+  background: url(../images/link.svg) no-repeat;
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+  margin-top: 7.5px;
+  margin-left: 10px;
+  opacity: 0.25;
+  transition: opacity 0.25s ease-in-out;
+}
+a.hash:hover {
+  opacity: 1;
+}

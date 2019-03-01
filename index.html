@@ -38,9 +38,11 @@
   <body>
 
     <br />
-    <h1 id="title">
-      PERDITIS<span class="small-caps amphora">🏺</span>INVENTIS
-    </h1>
+    <div>
+      <h1 id="perditis-inventis">
+        PERDITIS<span class="small-caps amphora">🏺</span>INVENTIS
+      </h1>
+    </div>
 
     <div class="description">
 
@@ -127,7 +129,7 @@
             Paperback
           </li>
           <li>
-            Perfect bound
+            Perfect Bound
           </li>
           <li>
             Mrs. Eaves
@@ -143,7 +145,7 @@
 
       <div id="creator">
 
-        <h3>
+        <h3 id="about">
           About the Creator
         </h3>
 
@@ -158,8 +160,8 @@
           <a href="https://jono.fyi/" target="_blank">Jono</a> is an Emmy award winning graphic designer and computer programmer. He is currently earning a Master of Fine Arts in New Media at <a href="https://paris.edu/" target="_blank">Paris College of Art</a>. He is interested in combining art and technology to explore culture. His work has been showcased at the Tate Modern, Siggraph, FITC, and the Japan Media Arts Festival as well as featured in publications like The New Yorker and Wired Magazine.
         </p>
 
-        <h3 id="advisor">
-          Advisor and Introduction
+        <h3 id="introduction-by">
+          With an Introduction By
         </h3>
         <p>
           Filippo Lorenzin is a London based independent writer and curator. He collaborated with international art venues, including the Goethe Instiut, Satchi Gallery and La Biennale di Venezia. He currently teaches at the Paris College of Art and works at the Victoria and Albert Museum.
@@ -168,8 +170,14 @@
       </div>
 
       <div class="visual">
+        <h3 id="next-steps">
+          Next Steps
+        </h3>
         <p>
-          He is currently looking for a publisher to help distribute an accessible edition of the book. For more information please get in touch through email: <a href="mailto:inquiries@jono.fyi">inquiries@jono.fyi</a>
+          We are currently looking for a publisher to help distribute an accessible edition of the book. For more information please get in touch through email: <a href="mailto:inquiries@jono.fyi">inquiries@jono.fyi</a>.
+          <br />
+          <br />
+          Stay up-to-date with progress to the <em>Lost Treasures Found</em> project as well as additional projects by Jono by joining the <a href="./signup.html">Newsletter</a>. Emails are roughly sent quarterly through Mailchimp.
         </p>
       </div>
 
@@ -221,85 +229,7 @@
     <div class="scripts">
       <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/523e97fad789c8129168aaaeb/8831547220b27bde366326894.js");</script>
       <!-- <script src="./src/transcode.js"></script> -->
-      <script>
-
-        var iframe = document.querySelector('#visualization iframe');
-        var closeup = document.querySelector('#close-up');
-        var images = document.querySelectorAll('#slideshow img');
-        var content = closeup.querySelector('div.content');
-
-        images = Array.prototype.slice.call(images, 0);
-        images.index = 0;
-
-        if (iframe) {
-          scroll();
-          window.addEventListener('scroll', scroll, false);
-        }
-
-        closeup.querySelector('.exit').addEventListener('click', close, false);
-        closeup.querySelector('.prev').addEventListener('click', prev, false);
-        closeup.querySelector('.next').addEventListener('click', next, false);
-
-        for (var i = 0; i < images.length; i++) {
-          var image = images[i];
-          image.addEventListener('click', show, false);
-        }
-
-        function scroll() {
-
-          if (!iframe.contentWindow) {
-            return;
-          }
-
-          var height = window.innerHeight;
-          var rect = iframe.getBoundingClientRect();
-          var message = 'pause';
-
-          if (rect.top >= - rect.height && rect.top <= height) {
-            message = 'play';
-          }
-
-          iframe.contentWindow.postMessage(message, window.location.href);
-
-        }
-
-        function show(e) {
-          closeup.style.display = 'block';
-          var reference = e.target;
-          images.index = images.indexOf(reference);
-          updateImage();
-        }
-
-        function next() {
-          images.index = mod(images.index + 1, images.length);
-          updateImage();
-        }
-
-        function prev() {
-          images.index = mod(images.index - 1, images.length);
-          updateImage();
-        }
-
-        function updateImage() {
-          var reference = images[images.index];
-          if (reference) {
-            var src = reference.src;
-            content.style.backgroundImage = ['url(', src, ')'].join('');
-          }
-        }
-
-        function mod(v, l) {
-          while (v < 0) {
-            v += l;
-          }
-          return v % l;
-        }
-
-        function close(e) {
-          closeup.style.display = 'none';
-        }
-
-      </script>
+      <script src="./src/index.js"></script>
     </div>
   </body>
 </html>

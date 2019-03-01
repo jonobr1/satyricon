@@ -277,3 +277,24 @@ button {
     animation: oscillate 0.1s ease-out infinite;
   }
 }
+
+a.hash {
+
+  position: absolute;
+  display: inline-block;
+  border-bottom: 0;
+
+  background: url(../images/link.svg) no-repeat;
+  background-size: 100%;
+
+  width: @font-size;
+  height: @font-size;
+  margin-top: (@base * 3 - @font-size) * 0.75;
+  margin-left: @font-size / 2;
+  opacity: 0.25;
+  transition: opacity 0.25s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
