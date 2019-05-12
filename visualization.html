@@ -10,6 +10,7 @@
     <div class="scripts">
       <script src="./third-party/two.js"></script>
       <script src="./third-party/xhr.js"></script>
+      <script src="./third-party/url.js"></script>
       <script>
 
         var amount = 20;
@@ -29,6 +30,10 @@
           type: Two.Types.canvas,
           fullscreen: true
         }).appendTo(document.body);
+
+        if (url.boolean('autoplay', false)) {
+          two.play();
+        }
 
         window.addEventListener('message', function(e) {
 
