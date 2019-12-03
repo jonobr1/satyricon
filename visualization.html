@@ -56,13 +56,8 @@
 
         }, false);
 
-        window.addEventListener('click', function(e) {
-
-          if (!two.playing) {
-            two.play();
-          }
-
-        }, false);
+        window.addEventListener('click', play, false);
+        window.addEventListener('touchstart', play, false);
 
         var elements = new Two.Group();
         two.add(elements);
@@ -106,6 +101,12 @@
 
         two.bind('resize', resize);
         two.bind('update', update);
+
+        function play(e) {
+          if (!two.playing) {
+            two.play();
+          }
+        }
 
         function resize() {
 
