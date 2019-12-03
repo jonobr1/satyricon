@@ -56,8 +56,8 @@
 
         }, false);
 
-        window.addEventListener('click', play, false);
-        window.addEventListener('touchstart', play, false);
+        two.renderer.domElement.addEventListener('click', play, false);
+        two.renderer.domElement.addEventListener('touchstart', play, false);
 
         var elements = new Two.Group();
         two.add(elements);
